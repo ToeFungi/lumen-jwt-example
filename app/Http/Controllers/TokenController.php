@@ -24,7 +24,7 @@ class TokenController
                                 ->sign($signer, $keychain->getPrivateKey(getenv('JWT_PRIV_KEY')))
                                 ->getToken(); // Retrieves the generated token
 
-        return response($token, 200);
+        return response(['token' => (string) $token], 200);
     }
 
     public function validateToken(Request $request)
