@@ -24,7 +24,7 @@ class TokenController
                                 ->sign($signer, $keychain->getPrivateKey(getenv('JWT_PRIV_KEY')))
                                 ->getToken(); // Retrieves the generated token
 
-        return response(['Token' => $token], 200);
+        return response($token, 200);
     }
 
     public function validateToken(Request $request)
@@ -36,7 +36,7 @@ class TokenController
         try {
             $token = (new Parser())->parse($request->bearerToken()); // Parses from a string
         } catch (Exception $exception) {
-            return response(['Message' => 'Error: Bad token.'], 401);
+            return response(['Message' => 'Error: Bad token.'], 403);
         }
 
         if(!$token->verify($signer, $keychain->getPublicKey(getenv('JWT_PUB_KEY'))))
