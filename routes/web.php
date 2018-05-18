@@ -16,4 +16,4 @@ $app->get('/', function () use ($app) {
 });
 
 $app->get('/token', 'TokenController@generateToken');
-$app->post('/token', 'TokenController@validateToken');
+$app->post('/token', ['middleware' => 'auth', 'uses' => 'TokenController@protectedEndpoint']);
